@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="surface" x1="28" y1="18" x2="225" y2="240" gradientUnits="userSpaceOnUse"><stop stop-color="#26362A"/><stop offset=".55" stop-color="#171A1B"/><stop offset="1" stop-color="#251B2B"/></linearGradient>
+    <linearGradient id="petal" x1="78" y1="42" x2="174" y2="206" gradientUnits="userSpaceOnUse"><stop stop-color="#F2C8E8"/><stop offset=".52" stop-color="#D49BD9"/><stop offset="1" stop-color="#A9CFA3"/></linearGradient>
+    <linearGradient id="ring" x1="42" y1="28" x2="215" y2="230" gradientUnits="userSpaceOnUse"><stop stop-color="#E7F3E3" stop-opacity=".8"/><stop offset=".55" stop-color="#A9CFA3" stop-opacity=".25"/><stop offset="1" stop-color="#D99ECF" stop-opacity=".75"/></linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="66" fill="url(#surface)"/>
+  <rect x="9" y="9" width="238" height="238" rx="65" stroke="url(#ring)" stroke-width="2"/>
+  <circle cx="128" cy="128" r="83" fill="#080A0B" fill-opacity=".42" stroke="#EAF2E8" stroke-opacity=".16" stroke-width="2"/>
+  <g transform="translate(128 122)" fill="url(#petal)">
+    <ellipse cy="-38" rx="20" ry="35"/>
+    <ellipse cy="-38" rx="20" ry="35" transform="rotate(72)"/>
+    <ellipse cy="-38" rx="20" ry="35" transform="rotate(144)"/>
+    <ellipse cy="-38" rx="20" ry="35" transform="rotate(216)"/>
+    <ellipse cy="-38" rx="20" ry="35" transform="rotate(288)"/>
+    <circle r="19" fill="#13151A" stroke="#E9C8E6" stroke-opacity=".85" stroke-width="2"/>
+    <path d="M-8 3v-16l16-4v16" stroke="#E8F1E5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="-10" cy="4" r="5" fill="#E8F1E5"/><circle cx="6" cy="-1" r="5" fill="#E8F1E5"/>
+  </g>
+  <path d="M49 186c23 20 48 30 79 30 30 0 55-10 79-30" stroke="#A9CFA3" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+</svg>
