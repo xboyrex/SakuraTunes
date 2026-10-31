@@ -1,0 +1,9 @@
+Sakura Tunes is a next-generation Android music streaming player engineered with real-time refractive Liquid Glass shaders, expressive blossom geometry, and studio-grade audio playback.
+
+Key Features:
+- Real-Time Liquid Glass Engine: Refractive AGSL lens dispersion, dynamic backdrop blur, interactive touch highlights, and customizable frost/refraction studio controls.
+- Floating Liquid Capsule Navigation: Physics-driven damped drag pill indicator, haptic snap transitions, and expressive blossom iconography.
+- High-Resolution Audio & EQ: 24-bit audio pipeline, parametric equalizer, tempo/pitch controls, crossfade, and silence skipping.
+- Multi-Source Synchronized Lyrics: Real-time word-by-word and line-synced lyrics with Romanization and translation support.
+- Listen Together & Scrobbling: Real-time synchronized listening rooms, Last.fm scrobbling, Discord Rich Presence, and Shazam-style audio recognition.
+- Smart Offline Cache & Storage Analyzer: Download songs, albums, and playlists for offline playback with built-in storage breakdown controls.

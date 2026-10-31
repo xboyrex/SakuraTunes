@@ -1,0 +1,62 @@
+name: Quick Test Build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_quick:
+    name: Quick Universal Release Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: "gradle"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Setup Release Keystore
+        run: |
+          mkdir -p app/keystore
+          keytool -genkeypair -v \
+            -keystore app/keystore/release.keystore \
+            -alias sakuratunes \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass sakuratunes123 \
+            -keypass sakuratunes123 \
+            -dname "CN=xboyrex, OU=SakuraTunes, O=xboyrex, L=Patna, S=BR, C=IN"
+
+      - name: Build Release APK (No Lint)
+        run: ./gradlew --console=plain assembleFossRelease --warning-mode summary -x lint -x lintFossRelease
+        env:
+          SAKURA_APPLICATION_ID: com.sakuratunes.music.test
+          SAKURA_APP_NAME: Sakura Tunes Testing
+          STORE_PASSWORD: sakuratunes123
+          KEY_ALIAS: sakuratunes
+          KEY_PASSWORD: sakuratunes123
+          PULL_REQUEST: "false"
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
+
+      - name: Upload Signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SakuraTunes-test-release
+          path: app/build/outputs/apk/foss/release/*.apk

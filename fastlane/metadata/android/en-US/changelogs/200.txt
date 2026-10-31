@@ -1,0 +1,5 @@
+Sakura Tunes v2.0.0 — Liquid Glass Edition:
+- Integrated full real-time Liquid Glass shader engine (High/Balanced/Lite quality modes, adjustable blur radius, refraction index, lens height, and dispersion).
+- Added floating Liquid Glass bottom navigation capsule with damped drag physics and interactive specular highlights.
+- Added Liquid Glass Studio & Quick Storage Analyzer sheets directly in Settings.
+- Redesigned UI/UX with Sakura Blossom theme presets, Rounded Heavy display typography, and custom vector icons & adaptive launcher artwork.

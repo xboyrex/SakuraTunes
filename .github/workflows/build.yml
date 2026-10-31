@@ -1,0 +1,130 @@
+name: Build APKs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main", "master"]
+
+permissions:
+  contents: write
+  discussions: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_release:
+    name: Build & Release APK
+    if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Set Up Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_CACHE_KEY }}
+          cache-cleanup: on-success
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew .github/scripts/parse_changelog.sh 2>/dev/null || chmod +x gradlew
+
+      - name: Prepare Release Keystore
+        env:
+          SECRET_KEYSTORE: ${{ secrets.KEYSTORE }}
+        run: |
+          mkdir -p app/keystore
+          if [ -n "$SECRET_KEYSTORE" ]; then
+            echo "$SECRET_KEYSTORE" | base64 -d > app/keystore/release.keystore
+          else
+            keytool -genkeypair -v \
+              -keystore app/keystore/release.keystore \
+              -alias sakuratunes \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass sakuratunes123 \
+              -keypass sakuratunes123 \
+              -dname "CN=xboyrex, OU=SakuraTunes, O=xboyrex, L=Patna, S=BR, C=IN"
+          fi
+
+      - name: Build Signed Release APK
+        run: ./gradlew --console=plain assembleGmsRelease --warning-mode summary
+        env:
+          SAKURA_APPLICATION_ID: com.sakuratunes.music
+          SAKURA_APP_NAME: Sakura Tunes
+          SAKURA_BUILD_COMMIT: ${{ github.sha }}
+          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD != '' && secrets.KEYSTORE_PASSWORD || 'sakuratunes123' }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS != '' && secrets.KEY_ALIAS || 'sakuratunes' }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD != '' && secrets.KEY_PASSWORD || 'sakuratunes123' }}
+          PULL_REQUEST: "false"
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
+
+      - name: Prepare Release APKs
+        run: |
+          OUTPUT_DIR="app/build/outputs/apk/gms/release"
+          mkdir -p "$OUTPUT_DIR/out"
+          APK_FILE=$(find "$OUTPUT_DIR" -maxdepth 1 -name "*.apk" | head -n 1)
+          cp "$APK_FILE" "$OUTPUT_DIR/out/SakuraTunes-with-Google-Cast.apk"
+          cp "$APK_FILE" "$OUTPUT_DIR/out/SakuraTunes.apk"
+          ls -lh "$OUTPUT_DIR/out/"
+
+      - name: Upload Signed APK Artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: SakuraTunes-Release-APK
+          path: app/build/outputs/apk/gms/release/out/*
+
+      - name: Publish GitHub Release Automatically
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN != '' && secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(grep -oP '^\s*versionName\s*=\s*"\K[^"]+' app/build.gradle.kts \
+                    | head -n 1 \
+                    | tr -d '[:space:]' \
+                    || true)
+          VERSION="${VERSION:-2.0.0}"
+
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?(\+[A-Za-z0-9.-]+)?$ ]]; then
+            echo "::warning::Extracted version '$VERSION' is not valid semver, falling back to 2.0.0"
+            VERSION="2.0.0"
+          fi
+
+          TAG="v${VERSION}"
+          echo "Resolved VERSION=$VERSION  TAG=$TAG"
+
+          if ! git check-ref-format "refs/tags/$TAG" ; then
+            echo "::error::Refusing to publish — '$TAG' is not a valid git tag"
+            exit 1
+          fi
+
+          OUTPUT_DIR="app/build/outputs/apk/gms/release/out"
+
+          if [ -f .github/scripts/parse_changelog.sh ] && bash .github/scripts/parse_changelog.sh "$VERSION" changelog.md > release_notes.md 2>/dev/null; then
+            echo "Loaded release notes from changelog.md"
+          else
+            echo "Sakura Tunes ${TAG} — Liquid Glass Edition by @xboyrex" > release_notes.md
+          fi
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG exists, uploading assets with --clobber"
+            gh release upload "$TAG" "$OUTPUT_DIR"/*.apk --clobber
+            gh release edit "$TAG" --notes-file release_notes.md --latest
+          else
+            echo "Creating release $TAG"
+            gh release create "$TAG" "$OUTPUT_DIR"/*.apk \
+              --title "Sakura Tunes ${TAG}" \
+              --notes-file release_notes.md \
+              --latest
+          fi
