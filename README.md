@@ -138,21 +138,86 @@ The release panel below is generated from the GitHub Releases API. It lists the 
 
 | File | Size | Downloads |
 | :--- | ---: | ---: |
-| [SakuraTunes-with-Google-Cast.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes-with-Google-Cast.apk) | 24.5 MB | 0 |
-| [SakuraTunes.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes.apk) | 24.5 MB | 0 |
+| [SakuraTunes-with-Google-Cast.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes-with-Google-Cast.apk) | 24.5 MB | 2 |
+| [SakuraTunes.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes.apk) | 24.5 MB | 3 |
 
 <details open>
 <summary>Release notes for v2.0.0</summary>
 
-###  Sakura Tunes v2.0.0 — Liquid Glass Edition
+<div align="center">
 
-####  Liquid Glass Engine & Visual Overhaul
-- **Real-Time Liquid Glass Shader Pipeline**: Added full refractive lens shaders, Gaussian frost blur backdrop (`LocalPageGlassBackdrop`), chromatic dispersion, and interactive touch highlights across navigation, miniplayer, player controls, filter chips, and sheets.
-- **Liquid Glass Studio (Settings)**: Added real-time optical tuning controls in Settings — switch between **High**, **Balanced**, and **Lite** quality modes, and customize **Blur Radius** (`4dp–42dp`), **Refraction Amount** (`0%–100%`), **Lens Height** (`0dp–36dp`), and **Chromatic Dispersion** (`0%–100%`).
-- **Floating Liquid Capsule Navigation Bar**: Replaced standard bottom navigation with `LiquidBottomTabs` featuring physics-driven damped drag pill animations (`DampedDragAnimation`), spring scale magnification, and haptic feedback.
-- **Redesigned Settings Hub & Quick Storage Analyzer**: Added interactive Liquid Glass hero banner, Quick Storage Analyzer sheet with visual storage breakdown and one-tap cache cleaning, and **Rounded Heavy Typography** toggle (`SakuraRoundedHeavy`).
-- **Custom Sakura Tunes Branding & Iconography**: All-new Sakura Blossom adaptive launcher icons, custom vector/SVG icons across the entire UI, and Sakura Pink (`#FF6BA0`) expressive color presets.
-- **Automated Zero-Config CI/CD**: Updated GitHub Actions workflows (`build.yml`, `release.yml`, `build_pr.yml`, `build_quick.yml`) for automatic APK compilation, persistent keystore generation/signing, and automated GitHub Releases.
+<img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/logo.svg" width="104" alt="Sakura Tunes" />
+
+# Sakura Tunes
+
+**A glass-first music experience for Android.**
+
+[![Build](https://github.com/xboyrex/SakuraTunes/actions/workflows/build.yml/badge.svg)](https://github.com/xboyrex/SakuraTunes/actions/workflows/build.yml)
+[![Latest release](https://img.shields.io/github/v/release/xboyrex/SakuraTunes?label=release&color=A9CFA3&logo=github)](https://github.com/xboyrex/SakuraTunes/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/xboyrex/SakuraTunes/total?label=downloads&color=1B201B&logo=android)](https://github.com/xboyrex/SakuraTunes/releases)
+[![License](https://img.shields.io/badge/license-GPL--3.0-A9CFA3.svg)](LICENSE)
+
+</div>
+
+<p align="center"><img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/banner.svg" width="100%" alt="Sakura Tunes Banner" /></p>
+
+<p align="center">
+  <a href="https://github.com/xboyrex/SakuraTunes/releases/latest"><strong>Download</strong></a>
+  &nbsp; · &nbsp;
+  <a href="https://github.com/xboyrex/SakuraTunes/releases">Releases</a>
+  &nbsp; · &nbsp;
+  <a href="https://github.com/xboyrex/SakuraTunes/issues">Issues</a>
+  &nbsp; · &nbsp;
+  <a href="https://t.me/MayankDroid7">Telegram</a>
+</p>
+
+---
+
+<p align="center"><img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/device-showcase.png" width="100%" alt="Sakura Tunes Screens" /></p>
+
+<details>
+<summary align="center"><b>View All Screens</b></summary>
+<br>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/01-now-playing.png" width="19%" />
+  <img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/02-search.png" width="19%" />
+  <img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/03-home.png" width="19%" />
+  <img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/04-settings.png" width="19%" />
+  <img src="https://raw.githubusercontent.com/xboyrex/SakuraTunes/main/assets/screenshots/05-about.png" width="19%" />
+</p>
+</details>
+
+---
+
+## Features
+
+- **Liquid Glass Studio** — Blur, refraction, chromatic dispersion, quality presets
+- **Audio Engine** — Gapless, normalization, pitch/tempo, crossfade, EQ
+- **Synced Lyrics** — Line/word-level, translations, romanization
+- **Listen Together** — Synchronized group listening
+- **Music Recognition** — ShazamKit
+- **Integrations** — Last.fm, Discord Rich Presence
+- **Android Auto & Widgets**
+- **Google Cast** — GMS build only
+- **Themes** — Sakura palettes, dynamic colors, custom layouts
+
+## Download
+
+| Variant | Google Cast | Built-in Updater |
+| :--- | :---: | :---: |
+| **FOSS** | — |  |
+| **GMS** |  |  |
+| **Izzy** | — | — |
+
+---
+
+<div align="center">
+
+**Developer:** Lazy Mayank (`@xboyrex`)
+
+[GitHub](https://github.com/xboyrex) · [Telegram](https://t.me/MayankDroid7) · [Hub](https://t.me/OnyxHub7) · [Instagram](https://www.instagram.com/mayank.zx7) · [YouTube](https://youtube.com/@mayankdroid)
+
+</div>
 
 </details>
 
