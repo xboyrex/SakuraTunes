@@ -138,7 +138,7 @@ The release panel below is generated from the GitHub Releases API. It lists the 
 
 | File | Size | Downloads |
 | :--- | ---: | ---: |
-| [SakuraTunes-with-Google-Cast.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes-with-Google-Cast.apk) | 24.5 MB | 2 |
+| [SakuraTunes-with-Google-Cast.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes-with-Google-Cast.apk) | 24.5 MB | 3 |
 | [SakuraTunes.apk](https://github.com/xboyrex/SakuraTunes/releases/download/v2.0.0/SakuraTunes.apk) | 24.5 MB | 3 |
 
 <details open>
